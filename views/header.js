@@ -6,13 +6,17 @@ define(['marionette','hbs!templates/header','lib','models/event','parse'],functi
 		tagName:"div",
 		initialize:function(){
 			this.listenTo(Lib.Events,'signin:success',this.onUserSignInSuccess);
+			this.listenTo(Lib.Events,'signout:success',this.onUserSignOutSuccess);
 			this.model =  Parse.User.current();
 		},
 		onUserSignInSuccess:function(user){
 			this.model = user;
 			this.render();
 		},
-	
+		onUserSignOutSuccess:function(){
+			this.model = null;
+			this.render();
+		},
 		serializeData:function(){
 			if (this.model){ 
 				var data = this.model.toJSON();
@@ -25,16 +29,14 @@ define(['marionette','hbs!templates/header','lib','models/event','parse'],functi
 			return data;
 		},
 
-/*		events:{
-			"click .create-event":"createEvent",
+		events:{
+			"click .logout":"logout",
 
 		},
-		createEvent:function (){
-			if (this.model){
-				Lib.navigateTo("createNew");
-			}else{
-				Lib.navigateTo("signIn")
-			}
-		},*/
+		logout:function (){
+			Parse.User.logOut();
+			Lib.Events.trigger("signout:success");
+			Lib.navigateTo("signIn");
+		},
 	});
 });

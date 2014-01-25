@@ -15,7 +15,7 @@ requirejs.config({
         'q': "lib/q.min",
         'backbone.relational': 'lib/backbone.relational',
         'parse':'lib/parse',
-         'facebook': 'http://connect.facebook.net/en_US/all',
+         'facebook': 'lib/facebook',
          'lib':'scripts/lib',
     },
     shim: {
