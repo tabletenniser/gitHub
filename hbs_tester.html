@@ -2,7 +2,10 @@
 
 <head>
 	<script src="lib/handlebars.noamd.js"></script>
-	<script src="lib/jquery.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 	
 </head>
 	<body>
@@ -10,14 +13,25 @@
 
 		<div class="content"></div> 
 	<script type="text/template" id="template">
-		<p> {{name}}</p>
-		<p> {{age}}</p>
+<div class="media">
+  <!--<a class="pull-left" href="#">
+    <img class="media-object" src="..." alt="...">
+  </a>-->
+  <div class="media-body">
+    <a><h4 class="media-heading">{{description}}</h4></a>
+    <p>location:{{location}}</p>
+	<span class="glyphicon glyphicon-thumbs-up"></span> {{votes}} <span class="glyphicon glyphicon-thumbs-down"></span> {{downvotes}} 
+  </div>
+</div>
+
 	</script>
 
 	<script type ="text/javascript">
 		var data ={
-			name :"aaron",
-			age:10,
+			description:"hello",
+			location:"in ur backyard",
+			votes:123,
+			downvotes:321
 		}
 		$(document).ready(function(){
 			var template = $("#template").text();
