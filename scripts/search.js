@@ -92,6 +92,7 @@ define(['marionette','lib','q'],function(Marionette,Lib,Q){
 	Search.markPlacesNearby=function(lat, lng, types, radius){
 
 			//marks all query places near coordinates in certain radius
+			var deffered = Q.defer();
 			var coord = new google.maps.LatLng(lat, lng);
 			var request = {
 				location: coord,
@@ -100,10 +101,11 @@ define(['marionette','lib','q'],function(Marionette,Lib,Q){
 				rankBy:google.maps.places.RankBy.PROMINENCE,
 			};
 			var service = new google.maps.places.PlacesService(map);
-			service.nearbySearch(request, processPlaces);
+			service.nearbySearch(request, processPlaces,deffered);
+			return deffered.promise;
 		}
 
-		function processPlaces(results, status){
+		function processPlaces(results, status,promise){
 			if(status==google.maps.places.PlacesServiceStatus.OK){
 				var resultCount = results.length>20 ? 20:results.length;
 				nearbyPlacesList = results.slice(0,resultCount);
@@ -112,6 +114,7 @@ define(['marionette','lib','q'],function(Marionette,Lib,Q){
 					var marker = createPlaceMarker(results[i]);
 					bounds.extend (results[i].geometry.location);
 				}
+				deffered.resolve(results);
 				//  Fit these bounds to the map
 				map.fitBounds (bounds);
 				//map.setZoom(15);

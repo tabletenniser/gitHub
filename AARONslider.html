@@ -52,8 +52,6 @@
 
 	<script>
 	var time=new Array();
-	var start_time=new Array();
-	var end_time=new Array();
 	for (var i=0; i<5; i++){
 		start_time[i]=(new Date(2014, 1, 25, i+3, 00, 0, 0))/1000/60; 		// time in MINUTES!!!
 		end_time[i]=(new Date(2014, 1, 26, i+3, 00, 0, 0))/1000/60;
@@ -68,14 +66,7 @@
 
 
 
-	var min_time=(new Date(2014, 1, 11, 2, 00))/1000/60; 		// time in MINUTES!!!
-	var max_time=(new Date(2014, 1, 12, 12, 00))/1000/60;
-	for (var i=0; i<5; i++){
-		if (min_time>time[i].start)
-			min_time=time[i].start;
-		if (max_time<time[i].end)
-			max_time=time[i].end;
-	}
+	
 	/*var start_time=new Array();
 	var end_time=new Array();
 	var names=new Array();
@@ -104,22 +95,20 @@
 		});
 	});
 
-	function slideBar(min_time, max_time, times)
+	function slideBar(times)
 	{
-		// hover over the slide bar to see the number of votes
 
-		$( "li" ).hover(
-			function() {
-				$( this ).append( $( "<span> ***</span>" ) );
-			}, function() {
-				$( this ).find( "span:last" ).remove();
-			}
-			);
-
-		var mainPosition = $("#MainDiv").position();
-		alert(mainPosition.left + ", " + mainPosition.top);
-
-
+	var start_time=new Array();
+	var end_time=new Array();
+		
+	var min_time=(new Date(2014, 1, 11, 2, 00))/1000/60; 		// time in MINUTES!!!
+		var max_time=(new Date(2014, 1, 12, 12, 00))/1000/60;
+		for (var i=0; i<5; i++){
+			if (min_time>time[i].start)
+				min_time=time[i].start;
+			if (max_time<time[i].end)
+				max_time=time[i].end;
+		}
 
 
 

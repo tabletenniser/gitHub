@@ -9,6 +9,11 @@ define(['marionette','parse','lib','hbs!templates/itemviews/activityItemView'],f
 			console.log(options);
 			this.listenTo(this.model,'change',this.render);
 		},
+		onRender:function{
+			if (this.clickable){
+				this.$el.addClass("list-group-item");
+			}
+		},
 		serializeData:function(){
 			var data = this.model.toJSON();
 			_.extend(data,{voting:this.voting});
@@ -17,6 +22,15 @@ define(['marionette','parse','lib','hbs!templates/itemviews/activityItemView'],f
 		events:{
 			"click .upvote":"upVote",
 			"click .downvote":"downVote",
+			"click" : "onClick",
+		},
+
+		onClick:function(){
+			if (this.clickable){
+				this.$el.addClass("active");
+				this.$el.parent().find('.active').removeClass('active');
+			}
+
 		},
 		upVote:function(){
 			this.model.set("upvotes",this.model.get("upvotes")+1);

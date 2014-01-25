@@ -8,10 +8,5 @@ define(['marionette','parse','hbs!templates/composites/listView'],function(Mario
 			initialize:function(options){
 				_.extend(this,options);
 			},
-
 		});
-
-
-
-
 })
