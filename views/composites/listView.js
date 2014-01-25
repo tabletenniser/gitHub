@@ -4,7 +4,7 @@ define(['marionette','parse','hbs!templates/composites/listView'],function(Mario
 			template:listViewTemplate,
 			tagName: "div",
 			className:"list-view list-group",
-			itemViewContainer: ".content-section",
+			itemViewContainer: ".list-view-content",
 			initialize:function(options){
 				_.extend(this,options);
 			},
