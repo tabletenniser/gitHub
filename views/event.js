@@ -1,5 +1,6 @@
 define(['marionette','parse','hbs!templates/event','lib','models/event','models/activity','views/itemviews/activityItemView',
-		'views/composites/listView','scripts/search'],function(Marionette,Parse,createNewTemplate,Lib,Event,Activity,ActivityItemView,ListView,Search){
+		'views/composites/listView','scripts/search','facebook'],function(Marionette,Parse,createNewTemplate,Lib,Event,Activity,ActivityItemView,
+				ListView,Search,Facebook){
 	return Marionette.Layout.extend({
 		template: createNewTemplate,
 
@@ -7,6 +8,14 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 			_.extend(this,options);
 			this.refresh();
 		},
+		addFriends:function(){
+				//to do
+
+
+
+
+		},
+
 		//run this function whenever a new view is opened
 		refresh:function(eventId){
 			//create new event object
@@ -78,8 +87,10 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 			friend :".friend-section",
 			time :".time-section",
 		},
+
 		events:{
 			"click .submit": "submitEvent",
+			"click .add-friends": "addFriends",
 			"click .add-activity": "newActivity",
 			"click .submit-activity":"submitActivity",
 			"click #geolocate": "geolocate",

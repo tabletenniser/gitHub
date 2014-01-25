@@ -14,3 +14,8 @@ ul
 {
     list-style-type: none;
 }
+
+.horizontal-view-content li{
+	display: inline;
+
+}
