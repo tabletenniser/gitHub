@@ -77,9 +77,9 @@ require(['marionette',"handlebars","parse", "scripts/routes"],
         var app = new Marionette.Application();
 
         app.addRegions({
-            header: "#header",
-            footer :"#footer",
-            content:"#content",
+            header: ".header-section",
+            footer :".footer-section",
+            content:".content-section",
         });
 
         app.addInitializer(function () {
