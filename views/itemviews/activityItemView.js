@@ -2,16 +2,31 @@ define(['marionette','parse','lib','hbs!templates/itemviews/activityItemView'],f
 
 	return Marionette.ItemView.extend({
 		template: templateFile,
+		tagName:"li",
+		className:"activity-itemview",
 		initialize :function(options){
 			_.extend(this,options);
 			console.log(options);
+			this.listenTo(this.model,'change',this.render);
 		},
 		serializeData:function(){
 			var data = this.model.toJSON();
-		
 			_.extend(data,{voting:this.voting});
 			return data;
-			
+		},
+		events:{
+			"click .upvote":"upVote",
+			"click .downvote":"downVote",
+		},
+		upVote:function(){
+			this.model.set("upvotes",this.model.get("upvotes")+1);
+			this.model.save();
+		},
+		downVote:function(){
+			this.model.set("downvotes",this.model.get("downvotes")+1);
+			this.model.save();
 		}
+
+
 	})
 });
