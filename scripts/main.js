@@ -96,12 +96,15 @@ require(['marionette',"handlebars","parse", "scripts/routes","lib"],
              app.header.show(new header());
         });
        
-        var currentUser = Parse.User.current();
+       /* var currentUser = Parse.User.current();
         if (currentUser){
+            if (window.location.hash==""){
+                Lib.navigateTo("home");
+            }
+            
 
-            Lib.navigateTo("home");
         }else{
             Lib.navigateTo("signIn");
-        }
+        }*/
 
 });

@@ -32,6 +32,7 @@ div.indent_tab{
 	margin-left: 2em;
 }
 
+<<<<<<< HEAD
 div.pic_grid{
 	width: 45%;
 	display: block;
@@ -1294,3 +1295,12 @@ div.pic_grid{
 		border-top: solid 2px #e5e5e5;
 		text-align: center;
 	}
+=======
+.sub-range{
+	z-index: 20; 
+	height: 100%;  
+	background-color: black; 
+	opacity: 0.2;
+	position: absolute;
+}
+>>>>>>> b8c805b257f04dc8d7ad056ff32b3b5a8f6b4567

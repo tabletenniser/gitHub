@@ -10,10 +10,11 @@ define(['marionette','parse','hbs!templates/home','lib','models/event','views/co
 			this.events =new Event.Collection();
 			this.events.setUser(this.user);
 			this.events.fetch();
-			this.content.show(new ListView({
+			var list = new ListView({
 				collection: this.events,
 				itemView: EventItemView,
-			}));
+			});
+			this.content.show(list);
 
 		},
 	});

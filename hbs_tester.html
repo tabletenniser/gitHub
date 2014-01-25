@@ -2,17 +2,127 @@
 
 <head>
 	<script src="lib/handlebars.noamd.js"></script>
+<<<<<<< HEAD
+<<<<<<< HEAD
+	<script src="lib/jquery.min.js"></script>
+
+	<title>Slider Test</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Zexuan Wang, Canada, Table tennis, software, resume, Aaron Wang">
+	<meta name="description" content="Personal website of Zexuan Wang, about his academic, table tennis and social life">
+	<meta name="author" content="Zexuan Wang">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=900" />
+
+	<!--boostrap meta tags-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+	<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Arvo:700" rel="stylesheet" type="text/css"/>
+	<!-- noscript -->
+	<link rel="stylesheet" href="css/skel-noscript.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/style-desktop.css" />
+	<link rel="stylesheet" href="css/style-gallery.css" />
+	<!-- /noscript -->
+
+
+	<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.dropotron.min.js"></script>
+
+	<script src="js/bootstrap.min.js"></script>
+
+	<script src="js/config.js"></script>
+	<script src="js/skel.min.js"></script>
+	<script src="js/skel-panels.min.js"></script>	
+	<script src="js/gallery.js"></script>	  
+	<!-- used for mobile split-panel layout -->
+
+
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<link rel="stylesheet" href="/resources/demos/style.css">
+	<script>
+
+
+	var data ={
+		name :"aaron",
+		age:10,
+	}
+	$(document).ready(function(){
+		var template = $("#template").text();
+		console.log(template);
+		var compiled = Handlebars.compile(template);
+		$(".content").html(compiled(data));
+	});
+
+
+	
+
+	
+	$(function() {
+		$( "#slider-range" ).slider({
+			range: true,
+			min: 0,
+			max: 500,
+			values: [ 75, 300 ],
+			slide: function( event, ui ) {
+				$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+			}
+		});
+		$( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+			" - $" + $( "#slider-range" ).slider( "values", 1 ) );
+	});
+
+
+
+
+	</script>
+
+
+
+
+=======
+=======
+>>>>>>> 82d1a6d6f449abbe38190aa24cd174591049728b
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	
+<<<<<<< HEAD
+>>>>>>> 82d1a6d6f449abbe38190aa24cd174591049728b
+=======
+>>>>>>> 82d1a6d6f449abbe38190aa24cd174591049728b
 </head>
-	<body>
+<body>
 
 
-		<div class="content"></div> 
+	<!-- SLIDER DIV BEGINS-->
+	<div id="slider">
+		<p>
+			<label for="amount">Price range:</label>
+			<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
+		</p>
+
+		<div id="slider-range"></div>
+	</div>
+	<!-- SLIDER DIV BEGINS-->
+
+
 	<script type="text/template" id="template">
+<<<<<<< HEAD
+<<<<<<< HEAD
+	<p> {{name}}</p>
+	<p> {{age}}</p>
+	</script>
+
+=======
+=======
+>>>>>>> 82d1a6d6f449abbe38190aa24cd174591049728b
 <div class="media">
   <!--<a class="pull-left" href="#">
     <img class="media-object" src="..." alt="...">
@@ -40,5 +150,6 @@
 			 $(".content").html(compiled(data));
 		});
 	</script>
+>>>>>>> 82d1a6d6f449abbe38190aa24cd174591049728b
 </body>
 </html>
