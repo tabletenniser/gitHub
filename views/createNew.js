@@ -9,6 +9,7 @@ define(['marionette','parse','hbs!templates/createNew','models/event','scripts/l
 		events:{
 			"click .submit": "newEvent",
 			"click .add-activity": "newActivity",
+			"click .submit-activity":"submitActivity",
 		},
 		onRender:function(){
 			//create a new event object
@@ -17,7 +18,7 @@ define(['marionette','parse','hbs!templates/createNew','models/event','scripts/l
 			this.event.set("parent",this.user);
 		},
 		newActivity:function(){
-			this.$el.find(".new-acitivity-dropdown").css("display:show");
+			this.$el.find(".new-activity-dropdown").css({display:"block"});
 		},
 		newEvent:function(){
 			if (!this.event) throw new Error("no event object found");

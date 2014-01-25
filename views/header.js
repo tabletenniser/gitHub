@@ -24,7 +24,7 @@ define(['marionette','hbs!templates/header','scripts/lib','models/event','parse'
 			return data;
 		},
 
-		events:{
+/*		events:{
 			"click .create-event":"createEvent",
 
 		},
@@ -34,6 +34,6 @@ define(['marionette','hbs!templates/header','scripts/lib','models/event','parse'
 			}else{
 				Lib.navigateTo("signIn")
 			}
-		},
+		},*/
 	});
 });
