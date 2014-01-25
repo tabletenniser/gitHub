@@ -1,5 +1,5 @@
 define(['marionette','parse','hbs!templates/event','lib','models/event','models/activity','views/itemviews/activityItemView',
-		'views/composites/listView'],function(Marionette,Parse,createNewTemplate,Lib,Event,Activity,ActivityItemView,ListView){
+		'views/composites/listView','scripts/search'],function(Marionette,Parse,createNewTemplate,Lib,Event,Activity,ActivityItemView,ListView,Search){
 	return Marionette.Layout.extend({
 		template: createNewTemplate,
 
@@ -58,6 +58,8 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 		serializeData:function(){
 			data ={};
 			data.createNew = (this.createNew) ?true:false;
+			data.placeTypes = Search.placeTypes;
+			data.placeRadius = Search.placeRadius;
 			return data;
 		},
 		regions:{
@@ -69,6 +71,9 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 			"click .submit": "submitEvent",
 			"click .add-activity": "newActivity",
 			"click .submit-activity":"submitActivity",
+			"click #geolocate": "geolocate",
+			"click #findplaces":"findplaces",
+			"click #searchAddress": "searchAddress"
 		},
 		onRender:function(){
 			//create a new event object
@@ -111,6 +116,9 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 		
 		newActivity:function(){
 			this.$el.find(".new-activity-dropdown").css({display:"block"});
+			if (!this.map){
+				this.map = Search.initialize($("#map-canvas")[0]);
+			}
 		},
 		submitEvent:function(){
 			if (!this.event) throw new Error("no event object found");
@@ -128,6 +136,46 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 			});
 
 
+		},
+		geolocate:function(){
+			var coord ={};
+			if(this.map){
+				Search.geolocate().then(function(pos){
+					coord.lat = pos.lat;
+					coord.lng = pos.lng;
+					console.log(coord);
+				});
+			}
+			this.coord = coord;
+
+		},
+
+		findplaces:function(){
+			if (this.coord){
+				if (this.coord.lat&&this.coord.lng){
+					var radius = parseInt($("#placeRadius").val())*1000;
+					var type = $("#placeTypes").val();
+					Search.markPlacesNearby(this.coord.lat,this.coord.lng,type,radius);
+
+				}
+
+			}
+			
+
+
+
+		},
+		searchAddress:function(){
+			var address = $("#userAddrField").val();
+			if (address){
+				var coord = {}
+				Search.geoCodeAddress(address).then(function(pos){
+					coord.lat = pos.lat;
+					coord.lng = pos.lng;
+					console.log(coord);
+				});
+				this.coord = coord;
+			}
 		},
 
 

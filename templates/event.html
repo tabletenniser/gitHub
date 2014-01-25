@@ -40,10 +40,26 @@
 {{/if}}
 <div class="new-activity-dropdown" style="display:none">
 	<p>add activity</p>
-	<input name="activity-location" type="text"></input>
+	<!--<input name="activity-location" type="text"></input>
 	<input name="activity-title" type ="text"></input>
 	<input name ="activity-description" type ="text"></input>
-	<button class="submit-activity">submit</button>
+	<button class="submit-activity">submit</button>-->
+    <select id="placeTypes">
+      {{#each placeTypes}}
+          <option value="{{this}}">{{this}}</option>
+      {{/each}}
+    </select>
+    <select id="placeRadius">
+      {{#each placeRadius}}
+          <option value="{{this}}">{{this}}km</option>
+      {{/each}}
+    </select>  
+  <input id="userAddrField" name="address" placeholder="enter an address" type="text" class="text" />
+  <button id="searchAddress">search</button>
+  <button id="geolocate">geolocate</button> 
+    <div id="map-canvas" style="width: 600px; height: 400px; background-color: grey"></div>
+    <button id="findplaces">find</button> 
+
 </div>
 
 <br/>
