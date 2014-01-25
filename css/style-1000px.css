@@ -1,0 +1,143 @@
+/*
+	Strongly Typed 1.1 by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+
+USED FOR WIDTH =481-1200px set by config.js from skel API
+*/
+
+/*********************************************************************************/
+/* Basic                                                                         */
+/*********************************************************************************/
+
+
+
+	body
+	{
+		line-height: 1.75em;
+		font-size: 12pt;
+	}
+
+	h2
+	{
+		margin: 0 0 1em 0;
+	}
+
+	h3
+	{
+		margin: 0 0 0.6em 0;
+	}
+
+	h2 br, h3 br, h4 br, h5 br, h6 br
+	{
+		display: none;
+	}
+
+	/* Images */
+
+		.image
+		{
+		}
+
+			.image-full
+			{
+				margin: 0.8em 0 0.4em 0;
+			}
+			
+/*********************************************************************************/
+/* Wrappers                                                                      */
+/*********************************************************************************/
+
+	#header-wrapper
+	{
+	}
+
+	#features-wrapper
+	{
+		padding: 2em 0 4em 0;
+	}
+	
+	#banner-wrapper
+	{
+		padding: 2em 0 2em 0;
+	}
+	
+	#main-wrapper
+	{
+		padding: 0em 0 0em 0;
+	}
+	
+	#footer-wrapper
+	{
+		padding: 1.5em 0 0em 0;
+	}
+
+
+	/* Buttons */
+		
+		.button
+		{
+			font-size: 12px;
+			letter-spacing: 0px;
+			padding: 0.35em 1em 0.35em 1em;
+			margin: auto;
+		}
+
+		.button-left-bar
+		{
+			width: 8em;
+			padding: 0.35em 0.2em 0.35em 0.2em;
+		}
+/*********************************************************************************/
+/* Header                                                                        */
+/*********************************************************************************/
+
+	#header
+	{
+		padding: 6em 0 1em 0;
+	}
+
+		#header h1
+		{
+			font-size: 2.5em;
+			letter-spacing: 15px;
+		}
+		
+		#header h2
+		{
+			margin: 1em 0 0 0;
+			font-size: 1em;
+			letter-spacing: 2px;
+		}
+
+/*********************************************************************************/
+/* Nav                                                                           */
+/*********************************************************************************/
+
+	#nav
+	{
+	}
+
+		#nav > ul > li
+		{
+			padding-right: 1.25em;
+		}
+
+/*********************************************************************************/
+/* Banner                                                                        */
+/*********************************************************************************/
+	
+	#banner
+	{
+		padding: 7em 0 7em 0;
+	}
+		
+/*********************************************************************************/
+/* Copyright                                                                     */
+/*********************************************************************************/
+
+	#copyright
+	{
+		margin-top: 0em;
+		padding-top: 0em;
+	}

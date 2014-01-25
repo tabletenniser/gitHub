@@ -1,0 +1,179 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+img.gallery-img{
+	/*position: absolute;
+	margin: auto;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;*/
+	width: 100%;
+	height: 100%;
+}
+
+a img{
+	border: none;
+
+}
+
+body{
+	background: #BBB;
+}
+
+/*
+div.fixed{
+	background-color: red;
+	position: fixed;
+	z-index: 999;
+
+}*/
+
+div.close{
+	position: absolute;
+	bottom: 5%;
+	left: 35%;
+	background-color: white;
+	color:black;
+	font-size: 400%; /* if screen width < 800px, adjusted in gallery.js*/
+	width: 30%;
+	height: 10%;
+	padding: 0;
+	text-align: center;
+	opacity: 0.5
+}
+
+	
+div.close:hover{
+	cursor: pointer;
+	opacity: 1;
+}
+
+.wrapper-border{
+	width: 10%;	/* animate to 90% in gallery.js */
+	height: 90%;
+
+	top: 5%;		/*top value is modified depending on scroll position in gallery.js*/
+	left: 5%;
+	display: none;
+	padding: 2%;
+	background-color: #aaa;
+	position: fixed;
+	z-index: 20;
+	opacity: 0.95;
+}
+
+.gallery-wrapper{
+	width: 100%;
+	height: 100%;
+}
+
+
+.gallery-mask{
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	margin: auto;
+	overflow: hidden;
+}
+
+#gallery-ul{
+	list-style-type: none;
+	overflow: hidden;
+	height: 100%;
+	width: 100%;	/* set to numOfPics * sizeOfPic in gallery.js*/
+}
+
+.gallery-li{
+	display:inline;
+	float: left;
+	height: 100%;
+	width: 100%;
+	margin: auto;
+}
+
+.leftbtn{
+	width: 15%;
+	height: 90%;
+	position: absolute;
+	top: 5%;
+	left: 0%;
+	background: #666;
+	opacity: 0.4;
+	display: none;
+	text-align: center;
+	margin: auto;
+}
+
+.rightbtn{
+	width: 15%;
+	height: 90%;
+	position: absolute;
+	top: 5%;
+	right: 0%;
+	background: #666;
+	opacity: 0.4;
+	display: none;
+	text-align: center;
+	margin: auto;
+}
+
+.gallery-wrapper:hover .rightbtn,
+.gallery-wrapper:hover .leftbtn{
+	display: block;
+}
+
+	
+.leftbtn:hover,
+.rightbtn:hover{
+	opacity: 0.8;
+	cursor: pointer;
+}
+
+.leftbtn-inner{
+	width: 45%;
+	height: 100%;
+	/* (100-30)/2, center vertically */
+	margin: 20% auto 20% auto;	/* center horizontally */
+	padding-top: 20%;
+	padding-bottom: 20%;
+	/*background: #ff0000;
+	background-image: url('');
+	background-repeat: no-repeat;
+	background-position: 0px 0;*/
+}
+/*
+.leftbtn-inner:hover{
+	background-position: -35px 0;
+}*/
+
+.rightbtn-inner{
+	width: 45%;
+	height: 100%;
+	/* (100-30)/2, center vertically */
+	margin: 25% auto 20% auto;	/* center horizontally */
+	padding-top: 20%;
+	padding-bottom: 20%;
+	/*background: #ff0000;
+	background-image: url('');
+	background-repeat: no-repeat;
+	background-position: 0px 0;*/
+}
+/*
+.rightbtn-inner:hover{
+	background-position: -35px 0;
+}*/
+
+
+#rightbtn-image, #leftbtn-image{
+	margin: auto;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left:0;
+	right: 0;
+	height: 60%;
+	width: 60%;
+}
