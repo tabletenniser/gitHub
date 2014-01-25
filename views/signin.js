@@ -5,6 +5,7 @@ define(['marionette','parse', 'hbs!templates/signin','lib'],function(Marionette,
 		events:{
 			"click .sign-up-btn":"signup",
 			"click .sign-in-btn":"signin",
+			"click .fb-sign-in-btn":"fbSignIn",
 		},
 
 		signup:function(){
@@ -23,7 +24,20 @@ define(['marionette','parse', 'hbs!templates/signin','lib'],function(Marionette,
 
 			});
 
-
 		},
+		fbSignIn:function(){
+			Parse.FacebookUtils.logIn('read_friendlists', {
+			  success: function(user) {
+			    if (!user.existed()) {
+			      alert("User signed up and logged in through Facebook!");
+			    } else {
+			      alert("User logged in through Facebook!");
+			    }
+			  },
+			  error: function(user, error) {
+			    alert("User cancelled the Facebook login or did not fully authorize.");
+			  }
+			});
+		}
 	});
 });

@@ -7,11 +7,19 @@
 <div class="container">
   <div class="form-group">
     <label for="eventTitle">Title</label>
+    {{#if createNew}}
     <input type="text" class="form-control" id="eventTitle" placeholder="Enter title">
+    {{else}}
+        <p>{{title}}</p>
+    {{/if}}
   </div>
   <div class="form-group">
     <label for="eventDescription">Description</label>
-	<input type="text" class="form-control" id="eventDescription" placeholder="Enter Description">
+	 {{#if createNew}}
+    <input type="text" class="form-control" id="eventDescription" placeholder="Enter Description">
+    {{else}}
+        <p>{{description}}</p>
+      {{/if}}
   </div>
 
 

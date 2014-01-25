@@ -16,9 +16,12 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 				this.createNew =false;
 				this.event = Lib.DataStore.find(this.eventId,Event.Model);
 				if (!this.event) {
+					this.createNew=true;
+					this.newEvent();
 					this.event = new Event.Model();
 					var that = this;
 					var Query = new Parse.Query(this.event);
+
 					Query.get(this.eventId,function(event){
 						if(!event){
 							that.createNew=true;
@@ -26,8 +29,10 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 							that.render();
 						}else{
 							that.event =event;
+							that.createNew = false;
 							console.log(event.toJSON());
 							that.existingEvent();
+							that.render();
 						}
 					},function(){
 						
@@ -56,8 +61,14 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 
 		},
 		serializeData:function(){
-			data ={};
-			data.createNew = (this.createNew) ?true:false;
+			var data ={};
+			if (this.createNew){
+				data.createNew =  true;	
+			}else{
+				data.createNew = false;
+				if (this.event) _.extend(data,this.event.toJSON());
+			}
+			
 			data.placeTypes = Search.placeTypes;
 			data.placeRadius = Search.placeRadius;
 			return data;

@@ -41,7 +41,8 @@ requirejs.config({
             deps: ['backbone']
         },
         'facebook' : {
-            exports: 'FB'
+            deps:['parse'],
+            exports: 'Facebook',
         },
         'parse':{
             exports: "Parse",
@@ -53,30 +54,25 @@ requirejs.config({
         disableI18n: true,
     },
 });
-require(['facebook']);
 
-/*define(['facebook'], function(){
-  FB.init({
-    appId      : 'YOUR_APP_ID',
-  });
-  FB.getLoginStatus(function(response) {
-    console.log(response);
-  });
-});
-*/
-require(['marionette',"handlebars","parse", "scripts/routes","lib"],
-    function (Marionette, Handlebars,Parse,Routes,Lib) {
+
+require(['marionette',"handlebars","parse", "scripts/routes","lib",'facebook'],
+    function (Marionette, Handlebars,Parse,Routes,Lib,Facebook) {
        
 
         Marionette.TemplateCache.prototype.compileTemplate = function (rawTemplate) {
             return Handlebars.compile(rawTemplate);
         };
 
-       /* Parse.facebookUtils.init({
-            appId: "606404256104461",
-           
-        });*/
+       
         Parse.initialize( "Y0m8Cgwfm2lxQHxTTqhxaydhoAstB3g9ZkKehpTG","sM5WPkrzYz3GJ760vJcAsL97rx8VV04w9cNBmBGA");
+         Parse.FacebookUtils.init({
+            appId      : '606404256104461', // Facebook App ID
+    channelUrl : '//waterdo.parseapp.com/channel.html', // Channel File
+    status     : true, // check login status
+    cookie     : true, // enable cookies to allow Parse to access the session
+    xfbml      : true  // parse XFBML
+  });
         var app = new Marionette.Application();
 
         app.addRegions({

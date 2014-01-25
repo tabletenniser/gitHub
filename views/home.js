@@ -1,4 +1,4 @@
-define(['marionette','parse','hbs!templates/home','lib','models/event','views/composites/listView','views/itemViews/eventItemView'],
+define(['marionette','parse','hbs!templates/home','lib','models/event','views/composites/listView','views/itemviews/eventItemView'],
 		function(Marionette, Parse,homeTemplate,Lib,Event,ListView,EventItemView){
 	return Marionette.Layout.extend({
 		template: homeTemplate,
