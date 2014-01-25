@@ -9,9 +9,10 @@ define(['marionette','parse','lib','hbs!templates/itemviews/activityItemView'],f
 			console.log(options);
 			this.listenTo(this.model,'change',this.render);
 		},
-		onRender:function{
+		onRender:function(){
 			if (this.clickable){
 				this.$el.addClass("list-group-item");
+
 			}
 		},
 		serializeData:function(){
@@ -29,6 +30,8 @@ define(['marionette','parse','lib','hbs!templates/itemviews/activityItemView'],f
 			if (this.clickable){
 				this.$el.addClass("active");
 				this.$el.parent().find('.active').removeClass('active');
+				Lib.Events.trigger("activitiy:show",{lat: this.model.get('lat'),lng:this.model.get('lng')});
+				Lib.Events.trigger("activitiy:show",{lat: this.model.get('lat'),lng:this.model.get('lng')});
 			}
 
 		},
