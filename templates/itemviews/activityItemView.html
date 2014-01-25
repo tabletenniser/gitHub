@@ -1,4 +1,4 @@
-<p>{{location}}</p>
+<!--<p>{{location}}</p>
 
 {{#if voting}}
 <p>upvote {{upvotes}}</p>
@@ -6,3 +6,16 @@
 	<button class="voteup">vote up</button>
 	<button class="votedown">vote down</button>
 {{/if}}
+-->
+
+<div class="media well">
+  <!--<a class="pull-left" href="#">
+    <img class="media-object" src="..." alt="...">
+  </a>-->
+  <div class="media-body">
+    <a><h4 class="media-heading">{{location}}</h4></a>
+	<button type="button" class="close pull-right" aria-hidden="true">&times;</button>
+    <small>{{description}}</small>
+	<p><a class="voteup">vote up:</a> {{upvotes}} <a class="votedown">vote down:</a> {{downvotes}} </p>
+  </div>
+</div>
