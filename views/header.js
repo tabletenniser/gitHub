@@ -12,6 +12,7 @@ define(['marionette','hbs!templates/header','lib','models/event','parse'],functi
 			this.model = user;
 			this.render();
 		},
+	
 		serializeData:function(){
 			if (this.model){ 
 				var data = this.model.toJSON();

@@ -3,20 +3,20 @@ define(['backbone','q',"lib"],
         var routes = Backbone.Router.extend({
             routes: {
                 "home":"home",
-                "createNew":"createNew",
-                "event/:id":"event",
+                "event/:id":"openEvent",
+                "event":"newEvent",
                 "signin":"signin",
                 "signup":"signup",
             },
             home :function(){
                 this.lazyShow("views/home",this.app.content).then(function(){Lib.triggerNavEvent("home")})
             },
-            createNew:function(){
-                this.lazyShow("views/createNew",this.app.content).then(function(){Lib.triggerNavEvent("createNew")});
+            openEvent:function(){
+                this.lazyShow("views/event",this.app.content).then(function(){Lib.triggerNavEvent("createNew")});
 
             },
-            event :function(id){
-                this.lazyShow("views/event",this.app.content,id).then(function(){Lib.triggerNavEvent("event",id)});
+            newEvent :function(id){
+                this.lazyShow("views/event",this.app.content,{eventId:id}).then(function(){Lib.triggerNavEvent("event",id)});
             },
 
             signin:function(){

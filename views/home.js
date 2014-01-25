@@ -16,8 +16,5 @@ define(['marionette','parse','hbs!templates/home','lib','models/event','views/co
 			}));
 
 		},
-
-
-
 	});
 });
