@@ -1,0 +1,29 @@
+<html>
+
+<head>
+	<script src="lib/handlebars.noamd.js"></script>
+	<script src="lib/jquery.min.js"></script>
+</head>
+	<body>
+
+
+		<div class="content"></div> 
+	<script type="text/template" id="template">
+		<p> {{name}}</p>
+		<p> {{age}}</p>
+	</script>
+
+	<script type ="text/javascript">
+		var data ={
+			name :"aaron",
+			age:10,
+		}
+		$(document).ready(function(){
+			var template = $("#template").text();
+			console.log(template);
+			var compiled = Handlebars.compile(template);
+			 $(".content").html(compiled(data));
+		});
+	</script>
+</body>
+</html>
