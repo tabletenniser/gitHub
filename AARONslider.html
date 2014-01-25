@@ -27,13 +27,29 @@
 	<!-- used for mobile split-panel layout -->
 
 
-
 	<link rel="stylesheet" href="css/jquery-ui.custom.min.css">
 	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 	
 
-	<!--link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script-->
+	<!--For time picker -->
+	<script src="lib/jquery-ui-timepicker-addon.js"></script>
+	<script src="lib/jquery-ui-slideAccess.js"></script>
+
+	<style media="screen" type="text/css">
+	/* css for timepicker */
+	.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+	.ui-timepicker-div dl { text-align: left; }
+	.ui-timepicker-div dl dt { float: left; clear:left; padding: 0 0 0 5px; }
+	.ui-timepicker-div dl dd { margin: 0 10px 10px 45%; }
+	.ui-timepicker-div td { font-size: 90%; }
+	.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
+	.ui-timepicker-rtl{ direction: rtl; }
+	.ui-timepicker-rtl dl { text-align: right; padding: 0 5px 0 0; }
+	.ui-timepicker-rtl dl dt{ float: right; clear: right; }
+	.ui-timepicker-rtl dl dd { margin: 0 45% 10px 10px; }
+	</style>
+
 	<script>
 	var time=new Array();
 	var start_time=new Array();
@@ -45,15 +61,22 @@
 		time[i]={start: start_time[i], end :end_time[i], voter: ("aaron"+i)};
 	}
 
-	var min_time=(new Date(2014, 1, 25, 2, 00, 0, 0))/1000/60; 		// time in MINUTES!!!
-	var max_time=(new Date(2014, 1, 26, 12, 00, 0, 0))/1000/60;
+
+
+
+
+
+
+
+	var min_time=(new Date(2014, 1, 11, 2, 00))/1000/60; 		// time in MINUTES!!!
+	var max_time=(new Date(2014, 1, 12, 12, 00))/1000/60;
 	for (var i=0; i<5; i++){
 		if (min_time>time[i].start)
 			min_time=time[i].start;
 		if (max_time<time[i].end)
 			max_time=time[i].end;
 	}
-	var start_time=new Array();
+	/*var start_time=new Array();
 	var end_time=new Array();
 	var names=new Array();
 	//var time ={start:datetime, end :datetime, voter: user};
@@ -62,27 +85,52 @@
 		start_time[i]=(new Date(2014, 1, 25, i+3, 00, 0, 0))/1000/60; 		// time in MINUTES!!!
 		end_time[i]=(new Date(2014, 1, 26, i+3, 00, 0, 0))/1000/60;
 		names[i]="names"+i;
-	}
+	}*/
 
 	/*var data ={
 		name: "aaron",
 		age: 10,
 	}*/
 
-	document.onRead(){
-		slideBar(time)
-	}
+	$(document).ready(function(){
+		slideBar(min_time, max_time, time)
+	});
 
+	$(function () {
+		$('input').datetimepicker(
+		{
+			addSliderAccess: true,
+			sliderAccessArgs: { touchonly: false }
+		});
+	});
 
-	function sliderBar(min_time, max_time, start_time, end_time, names)
+	function slideBar(min_time, max_time, times)
 	{
+		// hover over the slide bar to see the number of votes
 
-		alert("inside slideBar function");
+		$( "li" ).hover(
+			function() {
+				$( this ).append( $( "<span> ***</span>" ) );
+			}, function() {
+				$( this ).find( "span:last" ).remove();
+			}
+			);
 
+		var mainPosition = $("#MainDiv").position();
+		alert(mainPosition.left + ", " + mainPosition.top);
+
+
+
+
+
+
+
+		//alert("min time: "+min_time+"max time: "+max_time);
+		// add individual votes into the bar
 		var content="";
 		for (var i=0; i<5; i++){			
-			var left=((start_time[i]-min_time)/(max_time-min_time))*100;
-			var width=((end_time[i]-start_time[i])/(max_time-min_time))*100;
+			var left=((times[i].start-min_time)/(max_time-min_time))*100;
+			var width=((times[i].end-times[i].start)/(max_time-min_time))*100;
 
 			content+='<div class="sub-range" style="position: absolute; z-index: 20; height: 100%; left: '+left+'%; width: '+width+'%; background-color: black; opacity: 0.2"></div>';
 		}
@@ -92,33 +140,53 @@
 
 
 
-		var template = $("#template").text();
+		// changes the slider value dynamically according to the <input>
+		$( ".startT" ).change(function() {
+			//alert( "Start time changed" );
+
+			var startT=new Date($( ".startT" ).val());
+//alert( startT.valueOf()/1000/60+44640);
+			$(".slider-range").slider('values',0,startT.valueOf()/1000/60+44640); // sets first handle (index 0) to 50
+		});
+
+		// changes the slider value dynamically according to the <input>
+		$( ".endT" ).change(function() {
+			//alert( "End time changed" );
+			var endT=new Date($( ".endT" ).val());
+
+		$(".slider-range").slider('values',1,endT.valueOf()/1000/60+44640); // sets second handle (index 1) to 80
+		});
+
+
+		/*var template = $("#template").text();
 		console.log(template);
 		var compiled = Handlebars.compile(template);
-		$(".content").html(compiled(data));
+		$(".content").html(compiled(data));*/
 
 		$(function() {
 			$( ".slider-range" ).slider({
 				range: true,
 				min: min_time,
-			max: max_time,		// max time = 24 hrs * 60min
+			max: max_time,		
 			step: 10,
 			values: [min_time, max_time ],
 			slide: function( event, ui ) {
 				var left=new Date(ui.values[0]*60*1000);
 				var right=new Date(ui.values[1]*60*1000);
 
-				$( ".startT" ).val(left.getFullYear()+"-"+left.getMonth()+"-"+left.getDate()+" "+left.getHours()+":"+(left.getMinutes()+"0").substring(0,2));
-				$( ".endT" ).val(right.getFullYear()+"-"+right.getMonth()+"-"+right.getDate()+" "+right.getHours()+":"+(right.getMinutes()+"0").substring(0,2));
+				//alert(("0"+left.getDate()).substring((""+left.getDate()).length -1));
+
+				$( ".startT" ).val(("0"+left.getMonth()).substring((""+left.getMonth()).length -1)+"/"+("0"+left.getDate()).substring((""+left.getDate()).length -1)+"/"+left.getFullYear()+" "+("0"+left.getHours()).substring((""+left.getHours()).length-1)+":"+(left.getMinutes()+"0").substring(0,2));
+				$( ".endT" ).val(("0"+right.getMonth()).substring((""+right.getMonth()).length -1)+"/"+("0"+right.getDate()).substring((""+right.getDate()).length -1)+"/"+right.getFullYear()+" "+("0"+right.getHours()).substring((""+right.getHours()).length-1)+":"+(right.getMinutes()+"0").substring(0,2));
 			}
 		});
 			var left=new Date($( ".slider-range" ).slider( "values", 0 )*60*1000);
 			var right=new Date($( ".slider-range" ).slider( "values", 1 )*60*1000);
-			$( ".startT" ).val(left.getFullYear()+"-"+left.getMonth()+"-"+left.getDate()+" "+left.getHours()+":"+(left.getMinutes()+"0").substring(0,2));
-			$(".endT").val(right.getFullYear()+"-"+right.getMonth()+"-"+right.getDate()+" "+right.getHours()+":"+(right.getMinutes()+"0").substring(0,2));
+			$( ".startT" ).val(("0"+left.getMonth()).substring((""+left.getMonth()).length -1)+"/"+("0"+left.getDate()).substring((""+left.getDate()).length -1)+"/"+left.getFullYear()+" "+("0"+left.getHours()).substring((""+left.getHours()).length-1)+":"+(left.getMinutes()+"0").substring(0,2));
+			$(".endT").val(("0"+right.getMonth()).substring((""+right.getMonth()).length -1)+"/"+("0"+right.getDate()).substring((""+right.getDate()).length -1)+"/"+right.getFullYear()+" "+("0"+right.getHours()).substring((""+right.getHours()).length-1)+":"+(right.getMinutes()+"0").substring(0,2));
 		});
 
-)
+}
 
 
 </script>
@@ -136,9 +204,8 @@
 		<div class="slider-range">
 			<div class="other-ranges"></div>
 		</div>
-
-		Start time: <input type="text" class="startT" style="border:0; color:#f6931f; font-weight:bold;" disabled>
-		End time: <input type="text" class="endT" style="border:0; color:#f6931f; font-weight:bold;" disabled>
+		Start time: <input type="text" class="startT" style="border:0; color:#f6931f; font-weight:bold;">
+		End time: <input type="text" class="endT" style="border:0; color:#f6931f; font-weight:bold;">
 
 	</div>
 	<!-- SLIDER DIV BEGINS-->
