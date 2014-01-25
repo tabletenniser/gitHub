@@ -63,8 +63,10 @@ require(['facebook']);
   });
 });
 */
-require(['marionette',"handlebars","parse", "scripts/routes"],
-    function (Marionette, Handlebars,Parse,Routes) {
+require(['marionette',"handlebars","parse", "scripts/routes","scripts/lib"],
+    function (Marionette, Handlebars,Parse,Routes,Lib) {
+       
+
         Marionette.TemplateCache.prototype.compileTemplate = function (rawTemplate) {
             return Handlebars.compile(rawTemplate);
         };
@@ -89,12 +91,16 @@ require(['marionette',"handlebars","parse", "scripts/routes"],
         });
 
         app.start();
-
+        require(["views/header"],function(header){
+             app.header.show(new header());
+        });
+       
         var currentUser = Parse.User.current();
         if (currentUser){
-            window.location.hash="home"
+
+            Lib.navigateTo("home");
         }else{
-            window.location.hash ="signin";
+            Lib.navigateTo("signIn");
         }
 
 });
