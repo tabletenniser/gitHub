@@ -16,6 +16,8 @@
     <a><h4 class="media-heading">{{location}}</h4></a>
 	<button type="button" class="close pull-right" aria-hidden="true">&times;</button>
     <small>{{description}}</small>
-	<p><a class="voteup">vote up:</a> {{upvotes}} <a class="votedown">vote down:</a> {{downvotes}} </p>
+	{{#if voting}}
+		<p><a class="upvote">vote up:</a> {{upvotes}} <a class="downvote">vote down:</a> {{downvotes}} </p>
+	{{/if}}
   </div>
 </div>
