@@ -47,6 +47,21 @@
 		<link rel="stylesheet" href="/resources/demos/style.css">
 		<script>
 
+
+		var data ={
+			name :"aaron",
+			age:10,
+		}
+		$(document).ready(function(){
+			var template = $("#template").text();
+			console.log(template);
+			var compiled = Handlebars.compile(template);
+			$(".content").html(compiled(data));
+		});
+
+
+		
+
 		
 		$(function() {
 			$( "#slider-range" ).slider({

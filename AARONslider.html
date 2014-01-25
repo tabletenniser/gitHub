@@ -1,0 +1,114 @@
+<html>
+
+<head>
+	<script src="lib/handlebars.noamd.js"></script>
+	<script src="lib/jquery.min.js"></script>
+
+	<title>Slider Test</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+	<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Arvo:700" rel="stylesheet" type="text/css"/>
+	<!-- noscript -->
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/style-desktop.css" />
+	<link rel="stylesheet" href="css/style-gallery.css" />
+	<!-- /noscript -->
+
+
+	<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+	<script src="js/jquery.dropotron.min.js"></script>
+
+	<script src="js/bootstrap.min.js"></script>
+
+	<script src="js/skel.min.js"></script>
+	<script src="js/skel-panels.min.js"></script>	
+	<script src="js/gallery.js"></script>	  
+	<!-- used for mobile split-panel layout -->
+
+
+
+	<link rel="stylesheet" href="css/jquery-ui.custom.min.css">
+	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	
+
+	<!--link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script-->
+	<script>
+
+	var min_time=(new Date(2014, 1, 25, 2, 00, 0, 0))/1000/60; 		// time in MINUTES!!!
+	var max_time=(new Date(2014, 1, 26, 12, 00, 0, 0))/1000/60;
+	var time_diff=Math.floor((max_time-min_time));		// time difference in minutes
+
+	alert(time_diff/1000/60);
+	//var time_interval=time_diff/200;
+
+	var data ={
+		name :"aaron",
+		age:10,
+	}
+
+	$(document).ready(function(){
+		var template = $("#template").text();
+		console.log(template);
+		var compiled = Handlebars.compile(template);
+		$("#content").html(compiled(data));
+
+		$(function() {
+			$( "#slider-range" ).slider({
+				range: true,
+				min: min_time,
+			max: max_time,		// max time = 24 hrs * 60min
+			step: 10,
+			values: [min_time, max_time ],
+			slide: function( event, ui ) {
+				var left=new Date(ui.values[0]*60*1000);
+				var right=new Date(ui.values[1]*60*1000);
+
+				$( "#startT" ).val(left.getFullYear()+"-"+left.getMonth()+"-"+left.getDate()+" "+left.getHours()+":"+(left.getMinutes()+"0").substring(0,2));
+				$( "#endT" ).val(right.getFullYear()+"-"+right.getMonth()+"-"+right.getDate()+" "+right.getHours()+":"+(right.getMinutes()+"0").substring(0,2));
+			}
+		});
+			var left=new Date($( "#slider-range" ).slider( "values", 0 )*60*1000);
+			var right=new Date($( "#slider-range" ).slider( "values", 1 )*60*1000);
+			$( "#startT" ).val(left.getFullYear()+"-"+left.getMonth()+"-"+left.getDate()+" "+left.getHours()+":"+(left.getMinutes()+"0").substring(0,2));
+			$("#endT").val(right.getFullYear()+"-"+right.getMonth()+"-"+right.getDate()+" "+right.getHours()+":"+(right.getMinutes()+"0").substring(0,2));
+		});
+
+	});
+
+
+
+	</script>
+</head>
+<body>
+
+	PLEASE VOTE FOR EVENT OF TIME:
+	<!-- SLIDER DIV BEGINS-->
+	<div id="slider">
+		<p>
+			<div id="content"></div>
+			
+		</p>
+
+		<div id="slider-range">
+
+			<div class="sub-range" style="z-index: 20; height: 100%; left: 10%; width: 50%; background-color: black; opacity: 0.2"></div>
+
+
+		</div>
+		Start time: <input type="text" id="startT" style="border:0; color:#f6931f; font-weight:bold;">
+		End time: <input type="text" id="endT" style="border:0; color:#f6931f; font-weight:bold;">
+
+	</div>
+	<!-- SLIDER DIV BEGINS-->
+
+	<!-- script template to be rendered using Handlebar-->
+	<script type="text/template" id="template">
+	<p> {{name}}</p>
+	<p> {{age}}</p>
+	</script>
+	<!-- END OF SCRIPT TEMPLATE -->
+
+</body>
+</html>
