@@ -1,41 +1,89 @@
-define(['marionette','parse','hbs!templates/createNew','lib','models/event','models/activity'],function(Marionette,Parse,createNewTemplate,Lib,Event,Activity){
+define(['marionette','parse','hbs!templates/event','lib','models/event','models/activity','views/itemviews/activityItemView',
+		'views/composites/listView'],function(Marionette,Parse,createNewTemplate,Lib,Event,Activity,ActivityItemView,ListView){
 	return Marionette.Layout.extend({
 		template: createNewTemplate,
 
-		intialize(options){
+		initialize:function(options){
 			_.extend(this,options);
 			this.refresh();
 		},
 		//run this function whenever a new view is opened
-		refresh:function(){
+		refresh:function(eventId){
 			//create new event object
+			if (eventId) this.eventId = eventId;
 			this.user = Lib.getCurrentUser();
 			if (this.eventId){
-				this.event = 
+				this.createNew =false;
+				this.event = Lib.DataStore.find(this.eventId,Event.Model);
+				if (!this.event) {
+					this.event = new Event.Model();
+					var that = this;
+					var Query = new Parse.Query(this.event);
+					Query.get(this.eventId,function(event){
+						if(!event){
+							that.createNew=true;
+							that.newEvent();
+							that.render();
+						}else{
+							that.event =event;
+							console.log(event.toJSON());
+							that.existingEvent();
+						}
+					},function(){
+						
+					});
+				}else{
+					that.existingEvent();
+				}
 			}else{
 				this.event = new Event.Model();	
 				this.event.set("user",this.user);
+				this.newEvent();
+				this.createNew = true;
 			}
+			this.activities = new Activity.Collection();
+
+		},
+
+		existingEvent:function(){
+
+			this.activities.setEvent(this.event);
+			this.activities.fetch();
+
+		},
+		newEvent:function (){
 			
 
 		},
 		serializeData:function(){
 			data ={};
-			data.createNew = (this.eventId) ?true:false;
+			data.createNew = (this.createNew) ?true:false;
 			return data;
 		},
-		ui:{
-			event:".event-section",
+		regions:{
+			activity:".activity-section",
 			friend :".friend-section",
 			time :".time-section",
 		},
 		events:{
-			"click .submit": "newEvent",
+			"click .submit": "submitEvent",
 			"click .add-activity": "newActivity",
 			"click .submit-activity":"submitActivity",
 		},
 		onRender:function(){
 			//create a new event object
+			if (this.activities){
+				if (this.createNew){
+					var options = {voting:false}
+				}else{
+					var options = {voting:true}
+				}
+				this.activity.show(new ListView({
+					collection: this.activities,
+					itemView: ActivityItemView,
+					itemViewOptions: options,
+				}))
+			}
 			
 		},
 		submitActivity:function(){
@@ -51,9 +99,10 @@ define(['marionette','parse','hbs!templates/createNew','lib','models/event','mod
 						'upvotes':0,
 						'downvotes':0};
 			var view = this;
-		
+			var that =this;
 			Lib.ModelSave(activity,data,function(){
 				view.$el.find(".new-activity-dropdown").css({display:"none"});
+				that.activities.add(activity);
 			},function(){
 
 			});
@@ -63,15 +112,15 @@ define(['marionette','parse','hbs!templates/createNew','lib','models/event','mod
 		newActivity:function(){
 			this.$el.find(".new-activity-dropdown").css({display:"block"});
 		},
-		newEvent:function(){
+		submitEvent:function(){
 			if (!this.event) throw new Error("no event object found");
 			var event = this.event;
 
-			var data = {'title':this.$el.find("input[name='title']").val(),
-						'description':this.$el.find("input[name='description']").val()};
-
+			var data = {'title':this.$el.find("#eventTitle").val(),
+						'description':this.$el.find("#eventDescription").val()};
+		
 			Lib.ModelSave(event, data, function(){
-				console.log("new event created: "+ event.id+", "+event.get('title'));
+				console.log("new event created: "+ event.objectId+", "+event.get('title'));
 				event=null;
 				Lib.navigateTo("home");
 			}, function(){

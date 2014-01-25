@@ -49,7 +49,7 @@ define(['backbone','parse'],function(Backbone,Parse){
 			if (options.queryEnforce==false){
 				return Parse.Collection.prototype.fetch.apply(this,options);
 			}
-			if (query){
+			if (this.query){
 				return Parse.Collection.prototype.fetch.apply(this,options);
 			}else{
 				throw new Error('Query enforce, no query found');
@@ -57,23 +57,65 @@ define(['backbone','parse'],function(Backbone,Parse){
 		},
 	});
 
-	Lib.DataStore={};
-	var Store={}
-	Lib.DataStore.save = function(key,parseObject){
-		if(key){
-			Store[key] = parseObject; 
-		}else{
-			throw new Error("no object key");
-		}
+	
+	var Store={};
+	Lib.DataStore ={
+		save : function(key,parseObject){
+			if(key){
+				Store[parseObject.constructor][key] = parseObject; 
+			}else{
+				throw new Error("no object key");
+			}
 
+		},
+		find: function(key,objectClass){
+			if (key){
+				var set = Store[objectClass];
+				if (set){
+					return set[key];
+				}else{
+					return null;
+				}
+			}else{
+				throw new Error("no given key");
+			}
+		},
 	};
-	Lib.DataStore.find = function(key){
-		if (key){
-			return Store[key];
-		}else{
-			throw new Error("no given key");
-		}
-	}
+	Lib.Object = function () {
+       Parse.Object.apply(this,arguments);
+    };
+
+    Lib.Object.prototype = new Parse.Object();
+    Lib.Object.prototype.constructor = Lib.Object;
+
+	_.extend(Lib.Object.prototype,{
+		newQuery:function(){
+			return (new Parse.Query(this));
+		},
+	});
+
+	 Lib.Object.extend = function(protoProps, staticProps) {
+        var parent = this;
+        var child;
+        if (protoProps && _.has(protoProps, 'constructor')) {
+            child = protoProps.constructor;
+        } else {
+            child = function(){ return parent.apply(this, arguments); };
+        }
+        _.extend(child, parent, staticProps);      
+ 
+        var Surrogate = function(){ this.constructor = child; };
+        Surrogate.prototype = parent.prototype;
+        child.prototype = new Surrogate;
+               
+ 
+        if (protoProps) _.extend(child.prototype, protoProps);
+             
+ 
+        child.__super__ = parent.prototype;
+
+        return child;
+    }
 
 	return Lib;
 

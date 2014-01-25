@@ -14,6 +14,7 @@
 	<input type="text" class="form-control" id="eventDescription" placeholder="Enter Description">
   </div>
 
+
 <div class="friend-section">
   <label for="friendWell">Friends</label>
   <div class="well well-sm" id="friendWell">
@@ -23,23 +24,27 @@
 	<br/>
   </div>
 </div>
-<button type="button" class="btn btn-default">Add Friend + </button>
+{{#if createNew}}
+	<button type="button" class="btn btn-default">Add Friend + </button>
+{{/if}}
 <br/>
 <br/>
+
 <div class="activity-section">
   <label for="activityContainer">Activity</label>
   <div id="activityContainer">
   </div>
 </div>
-<button type="button" class="btn btn-default">Add Activity + </button>
-
-<!--<div class="new-activity-dropdown" style="display:none">
+{{#if createNew}}
+<button type="button" class="btn btn-default add-activity">Add Activity + </button>
+{{/if}}
+<div class="new-activity-dropdown" style="display:none">
 	<p>add activity</p>
 	<input name="activity-location" type="text"></input>
 	<input name="activity-title" type ="text"></input>
 	<input name ="activity-description" type ="text"></input>
 	<button class="submit-activity">submit</button>
-</div>-->
+</div>
 
 <br/>
 <br/>
@@ -54,6 +59,9 @@
 <br/>
 <br/>
 <div class="center-block">
-<button class="btn btn-default text-center">done</button>
+{{#if createNew}}
+<button class="btn btn-default text-center submit">
+done</button>
+{{/if}}
 </div>
 </div>
