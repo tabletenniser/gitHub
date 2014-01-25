@@ -4,9 +4,8 @@
 
 .sub-range{
 	z-index: 20; 
-	height: 100%; 
-	left: 10%; 
-	width: 50%; 
+	height: 100%;  
 	background-color: black; 
-	opacity: 0.2
+	opacity: 0.2;
+	position: absolute;
 }
