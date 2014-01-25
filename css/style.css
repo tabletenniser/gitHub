@@ -9,3 +9,8 @@
 	opacity: 0.2;
 	position: absolute;
 }
+
+ul
+{
+    list-style-type: none;
+}
