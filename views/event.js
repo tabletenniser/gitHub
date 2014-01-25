@@ -9,7 +9,25 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 			this.refresh();
 		},
 		addFriends:function(){
-				//to do
+			console.log("Add friends function gets called");
+
+			Facebook.ui(
+			{
+			method: 'apprequests',
+			name: 'Waterdo',
+			link: 'https://developers.facebook.com/docs/reference/dialogs/',
+			picture: 'http://fbrell.com/f8.jpg',
+			caption: 'You are invited to an event!',
+			description: 'You are invited to an event! Please register at Waterdo App to meet with your friends.'
+			},
+			function(response) {
+				if (response && response.post_id) {
+  					alert('Post was published.');
+				} else {
+  					alert('Post was not published.');
+				}
+			}
+			);
 
 
 

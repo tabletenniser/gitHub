@@ -106,21 +106,6 @@
 
 	function slideBar(min_time, max_time, times)
 	{
-		// hover over the slide bar to see the number of votes
-
-		$( "li" ).hover(
-			function() {
-				$( this ).append( $( "<span> ***</span>" ) );
-			}, function() {
-				$( this ).find( "span:last" ).remove();
-			}
-			);
-
-		var mainPosition = $("#MainDiv").position();
-		alert(mainPosition.left + ", " + mainPosition.top);
-
-
-
 
 
 
