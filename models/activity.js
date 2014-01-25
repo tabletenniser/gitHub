@@ -1,4 +1,4 @@
-define(['marionette','parse','scripts/lib'],function(Marionette,Parse, Lib){
+define(['marionette','parse','lib'],function(Marionette,Parse, Lib){
 
 	var Activity = {};
 	 Activity.Model = Parse.Object.extend({
@@ -6,8 +6,10 @@ define(['marionette','parse','scripts/lib'],function(Marionette,Parse, Lib){
 
 	 });
 
-	 Activity.Collection = Parse.Collection.extend({
+	 Activity.Collection = Lib.Collection.extend({
 	 	model: Activity.model,
+
+
 
 
 	 });

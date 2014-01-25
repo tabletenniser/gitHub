@@ -1,4 +1,4 @@
-define(['backbone','q',"scripts/lib"],
+define(['backbone','q',"lib"],
     function (Backbone,Q,Lib) {
         var routes = Backbone.Router.extend({
             routes: {

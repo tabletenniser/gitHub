@@ -34,6 +34,28 @@ define(['backbone','parse'],function(Backbone,Parse){
 		}
 
 	};
+	Lib.ModelSave = function(model,data,success,error){
+		if (model){
+			model.save(data,{
+				success:success,
+				error:error,
+
+			});
+		}
+	};
+	Lib.Collection = Parse.Collection.extend({
+		fetch:function(options){
+			options = (options) ? options:{};
+			if (options.queryEnforce==false){
+				return Parse.Collection.prototype.fetch.apply(this,options);
+			}
+			if (query){
+				return Parse.Collection.prototype.fetch.apply(this,options);
+			}else{
+				throw new Error('Query enforce, no query found');
+			}
+		},
+	});
 	return Lib;
 
 });

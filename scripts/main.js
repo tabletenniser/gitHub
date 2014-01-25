@@ -15,7 +15,8 @@ requirejs.config({
         'q': "lib/q.min",
         'backbone.relational': 'lib/backbone.relational',
         'parse':'lib/parse',
-         'facebook': 'http://connect.facebook.net/en_US/all'
+         'facebook': 'http://connect.facebook.net/en_US/all',
+         'lib':'scripts/lib',
     },
     shim: {
         'backbone': {
@@ -63,7 +64,7 @@ require(['facebook']);
   });
 });
 */
-require(['marionette',"handlebars","parse", "scripts/routes","scripts/lib"],
+require(['marionette',"handlebars","parse", "scripts/routes","lib"],
     function (Marionette, Handlebars,Parse,Routes,Lib) {
        
 

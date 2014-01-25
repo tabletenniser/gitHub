@@ -1,4 +1,4 @@
-define(['marionette','hbs!templates/header','scripts/lib','models/event','parse'],function(Marionette,headerTemplate,Lib,Event,Parse){
+define(['marionette','hbs!templates/header','lib','models/event','parse'],function(Marionette,headerTemplate,Lib,Event,Parse){
 	
 	return Marionette.ItemView.extend({
 		template : headerTemplate,
