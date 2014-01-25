@@ -16,13 +16,13 @@
         
 		<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Arvo:700" rel="stylesheet" type="text/css" />
 		<!-- noscript -->
-			<link rel="stylesheet" href="css/skel-noscript.css" />
 			<link rel="stylesheet" href="css/style.css" />
 			<link rel="stylesheet" href="css/style-desktop.css" />
         	<link rel="stylesheet" href="css/style-gallery.css" />
 		<!-- /noscript -->
 
 
+		
 		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/jquery.dropotron.min.js"></script>
@@ -30,23 +30,147 @@
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-panels.min.js"></script>	
         <script src="js/gallery.js"></script>	  
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+		<script src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+		
         <!-- used for mobile split-panel layout -->
         <script type='text/javascript'>
-        	
+		
+		var map;
+		var geocoder;
+		var latCoord=43.7;
+		var lngCoord=-79.4;//logs the current map location
+		var userLatCoord = 43.7;
+		var userLngCoord= -79.4;//logs the user location
+		var userLocation;
+		var userLocationMarker=null;
+		
+		function initialize() {
+			var mapOptions = {zoom: 6};
+			map = new google.maps.Map(document.getElementById('map-canvas'),
+			mapOptions);
+		
+			geocoder = new google.maps.Geocoder();
+		  // Try HTML5 geolocation
+		  if(navigator.geolocation) {
+			  navigator.geolocation.getCurrentPosition(function(position) {
+			  latCoord = position.coords.latitude;
+			  lngCoord = position.coords.longitude;
+			  setUserLocation();
+			  var pos = new google.maps.LatLng(latCoord, lngCoord);
+			
+			  var infowindow = new google.maps.InfoWindow({
+				map: map,
+				position: pos,
+				maxWidth: 100,
+				maxHeight:50,
+				content: 'Current location is: ('+latCoord+','+lngCoord+')'
+			  });
 
+			  map.setCenter(pos);
+			}, handleNoGeolocation);
+		  } else {
+			// Browser doesn't support Geolocation
+			handleNoGeolocation(-100);
+		  }
+				  
+		  userLocationMarker = new google.maps.Marker({
+							map: map, 
+							position: new google.maps.LatLng(latCoord, lngCoord)
+						});
+		}
+		google.maps.event.addDomListener(window, 'load', initialize);
+	
 
-        	/*$(function() {
-        		$("#sendMsg").click(function(){
-        			var mailContent="mailto:zexuan.wang@mail.utoronto.ca?subject=";
-        			mailContent+=$('#mailSubject').val();
-        			mailContent+="&body=";
-        			mailContent+=encodeURIComponent($('#mailBody').val());
-        			mailContent+="%0D%0A%0D%0A%0D%0A";
-        			mailContent+="From  ";
-					mailContent+=$('#mailSender').val();
-        			window.location.href = (mailContent);
-       			 });
-   			 }); */
+		function handleNoGeolocation(errorFlag) {	
+		  if(errorFlag==-100){
+			var content = 'Error: The Geolocation service failed.';
+		  }
+		  else{
+			var content = 'Error: '+errorFlag.message;
+		  }
+		  var options = {
+			map: map,	
+			maxWidth: 100,
+			maxHeight:50,
+			position: new google.maps.LatLng(latCoord, lngCoord),
+			content: content
+		  };
+
+		  //var infowindow = new google.maps.InfoWindow(options);
+		  map.setCenter(options.position);
+		}
+
+		function geoCodeAddress(){
+			var address = document.getElementById('userAddrField').value;
+				geocoder.geocode( { 'address': address}, function(results, status) {
+				if (status==google.maps.GeocoderStatus.OK){
+					if(results.length>1){
+						alert("more than one location is found");
+					}
+					latCoord = results[0].geometry.location.lat();
+					lngCoord = results[0].geometry.location.lng();
+					map.setCenter(results[0].geometry.location);
+					map.setZoom(12);
+
+				} 
+				else{
+					alert('Geocode was not successful because: ' + status);
+				}
+			});
+		}
+		
+		function setUserLocation(){
+			userLatCoord = latCoord;
+			userLngCoord = lngCoord;
+			var latlng = new google.maps.LatLng(userLatCoord,userLngCoord);
+			geocoder.geocode({'latLng': latlng}, function(results, status){
+				if (status == google.maps.GeocoderStatus.OK) {
+					userLocation = results[0]
+					alert("user location is "+ userLocation.formatted_address);
+					userLocationMarker.setPosition(latlng);
+					
+					map.setZoom(12);
+				}
+			});
+			
+		}
+		
+	
+		$(function() {	
+			$("#setCoordBtn").click(function(){
+				latVal=$("#latValField").val();
+				lngVal =$("#lngValField").val();
+				
+				if(latVal=="")
+					alert("invalid latitude. value is not set.");
+				else{
+					latCoord=latVal;
+					userLatCoord = latVal;
+				}
+				if(lngVal=="")
+					alert("invalid longitude. value is not set.");
+				else{
+					lngCoord=lngVal;
+					userLngCoord = lngVal;
+				}
+			});
+			
+			$("#reloadMapBtn").click(function(){
+				alert("longitude="+lngCoord+ "\n" +"latitude="+latCoord);
+				var options = { map: map, position: new google.maps.LatLng(latCoord,lngCoord)};
+				map.setCenter(options.position);
+			});
+			
+			$("#geoCodeBtn").click(function(){
+				geoCodeAddress();
+			});
+			
+			$("#setUserLocationBtn").click(function(){
+				setUserLocation();
+			});
+			
+		}); 
         </script>
 
 		
@@ -65,23 +189,44 @@
 						<div class="row">
 							<div class="6u">
 								<section>
-									<form method="post" action="#">
 										<div class="row half">											
 											<div class="6u">
-												<input id="mailSubject" name="subject" placeholder="Keywords" type="text" class="text" />
+												<input id="latValField" name="latVal" placeholder="latitude" type="text" class="text" />
 											</div>
+											
+											<div class="6u">
+												<input id="lngValField" name="lngVal" placeholder="longitude" type="text" class="text" />
+											</div>
+
+											<div class="6u">
+												<input id="userAddrField" name="address" placeholder="enter an address" type="text" class="text" />
+											</div>
+											
 										</div>
 
 										<div class="row half">
 											<div class="12u">
-												<a name="sendMsg" id="sendMsg" class="button button-icon fa fa-envelope">Show Map</a>
+												<a name="setCoord" id="setCoordBtn" class="button button-icon fa fa-envelope">Set coordinate values</a> 
 											</div>
-										</div>
-									</form>
+											
+											<div class="12u">
+												<a name="reloadMap" id="reloadMapBtn" class="button button-icon fa fa-envelope">go to coordinates</a> 
+											</div>
+											
+											<div class="12u">
+												<a name="geoCode" id="geoCodeBtn" class="button button-icon fa fa-envelope">geoCode map</a> 
+											</div>
+
+											<div class="12u">
+												<a name="setUserLocation" id="setUserLocationBtn" class="button button-icon fa fa-envelope">set Current Location as user's location</a> 
+											</div>
+																						
+											
 								</section>
 							</div>
 						</div>
 					</div>
+					<div id="map-canvas" style="width: 600px; height: 400px; background-color: grey"></div>
 					<!-- END OF CONTAINER-->
 
 
