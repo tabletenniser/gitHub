@@ -34,17 +34,29 @@
 
 	<!--link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script-->
-		<script>
-
-
+	<script>
+	var time=new Array();
+	var start_time=new Array();
+	var end_time=new Array();
+	for (var i=0; i<5; i++){
+		start_time[i]=(new Date(2014, 1, 25, i+3, 00, 0, 0))/1000/60; 		// time in MINUTES!!!
+		end_time[i]=(new Date(2014, 1, 26, i+3, 00, 0, 0))/1000/60;
+		
+		time[i]={start: start_time[i], end :end_time[i], voter: ("aaron"+i)};
+	}
 
 	var min_time=(new Date(2014, 1, 25, 2, 00, 0, 0))/1000/60; 		// time in MINUTES!!!
 	var max_time=(new Date(2014, 1, 26, 12, 00, 0, 0))/1000/60;
-	var time_diff=Math.floor((max_time-min_time));		// time difference in minutes
+	for (var i=0; i<5; i++){
+		if (min_time>time[i].start)
+			min_time=time[i].start;
+		if (max_time<time[i].end)
+			max_time=time[i].end;
+	}
 	var start_time=new Array();
 	var end_time=new Array();
 	var names=new Array();
-//var time ={start:datetime, end :datetime, voter: user};
+	//var time ={start:datetime, end :datetime, voter: user};
 
 	for (var i=0; i<5; i++){
 		start_time[i]=(new Date(2014, 1, 25, i+3, 00, 0, 0))/1000/60; 		// time in MINUTES!!!
@@ -52,17 +64,26 @@
 		names[i]="names"+i;
 	}
 
-	var data ={
+	/*var data ={
 		name: "aaron",
 		age: 10,
+	}*/
+
+	document.onRead(){
+		slideBar(time)
 	}
 
-	$(document).ready(function(){
+
+	function sliderBar(min_time, max_time, start_time, end_time, names)
+	{
+
+		alert("inside slideBar function");
+
 		var content="";
 		for (var i=0; i<5; i++){			
 			var left=((start_time[i]-min_time)/(max_time-min_time))*100;
 			var width=((end_time[i]-start_time[i])/(max_time-min_time))*100;
-	
+
 			content+='<div class="sub-range" style="position: absolute; z-index: 20; height: 100%; left: '+left+'%; width: '+width+'%; background-color: black; opacity: 0.2"></div>';
 		}
 
@@ -97,8 +118,7 @@
 			$(".endT").val(right.getFullYear()+"-"+right.getMonth()+"-"+right.getDate()+" "+right.getHours()+":"+(right.getMinutes()+"0").substring(0,2));
 		});
 
-});
-
+)
 
 
 </script>
@@ -123,7 +143,7 @@
 	</div>
 	<!-- SLIDER DIV BEGINS-->
 
-	<!-- script template to be rendered using Handlebar-->
+	<!-- script template to be rendered using Handlebar>
 	<script type="text/template" id="template">
 	<p> {{name}}</p>
 	<p> {{age}}</p>
