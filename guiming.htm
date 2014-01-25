@@ -38,18 +38,29 @@
 		
 		var map;
 		var geocoder;
-		var latCoord=43.7;
-		var lngCoord=-79.4;//logs the current map location
-		var userLatCoord = 43.7;
-		var userLngCoord= -79.4;//logs the user location
+		var latCoord=43.6584;
+		var lngCoord=-79.39449;//logs the current map location
+		var userLatCoord = 43.6584;
+		var userLngCoord= -79.39449;//logs the user location
 		var userLocation;
-		var userLocationMarker=null;
+		var userLocationMarker;
+		var infowindow;
+		var nearbySearchTypes;
+		var nearbySearchRadius;
+		var nearbySearchRankby;
+		var nearbyPlacesList;
 		
 		function initialize() {
+		
+			nearbySearchTypes = ['restaurant'];
+			nearbySearchRasius = 5000;
+			nearbySearchRankby=google.maps.places.RankBy.PROMINENCE;
+			nearbyPlacesList = new Array();
 			var mapOptions = {zoom: 6};
 			map = new google.maps.Map(document.getElementById('map-canvas'),
 			mapOptions);
-		
+			infowindow = new google.maps.InfoWindow({maxWidth: 100,	maxHeight:50});
+
 			geocoder = new google.maps.Geocoder();
 		  // Try HTML5 geolocation
 		  if(navigator.geolocation) {
@@ -59,11 +70,9 @@
 			  setUserLocation();
 			  var pos = new google.maps.LatLng(latCoord, lngCoord);
 			
-			  var infowindow = new google.maps.InfoWindow({
+			  infowindow = new google.maps.InfoWindow({
 				map: map,
 				position: pos,
-				maxWidth: 100,
-				maxHeight:50,
 				content: 'Current location is: ('+latCoord+','+lngCoord+')'
 			  });
 
@@ -90,9 +99,7 @@
 			var content = 'Error: '+errorFlag.message;
 		  }
 		  var options = {
-			map: map,	
-			maxWidth: 100,
-			maxHeight:50,
+			map: map,
 			position: new google.maps.LatLng(latCoord, lngCoord),
 			content: content
 		  };
@@ -127,16 +134,86 @@
 			geocoder.geocode({'latLng': latlng}, function(results, status){
 				if (status == google.maps.GeocoderStatus.OK) {
 					userLocation = results[0]
+					createMarker(userLocation);
 					alert("user location is "+ userLocation.formatted_address);
-					userLocationMarker.setPosition(latlng);
-					
 					map.setZoom(12);
 				}
 			});
 			
 		}
-		
+
+		function markPlacesNearby(lat, lng, types, radius, rankby){
+			//marks all query places near coordinates in certain radius
+			var coord = new google.maps.LatLng(lat, lng);
+			var request = {
+				location: coord,
+				radius: 500,
+				types: types, 
+				rankBy:rankby
+			};
+			var service = new google.maps.places.PlacesService(map);
+			service.nearbySearch(request, processPlaces);
+		}
+
+		function processPlaces(results, status){
+			if(status==google.maps.places.PlacesServiceStatus.OK){
+				var resultCount = results.length>20 ? 20:results.length;
+				nearbyPlacesList = results.slice(0,resultCount);
+				var bounds = new google.maps.LatLngBounds ();
+				for(var i = 0; i < resultCount; i++){
+					var marker = createPlaceMarker(results[i]);
+					bounds.extend (results[i].geometry.location);
+				}
+				//  Fit these bounds to the map
+				map.fitBounds (bounds);
+				//map.setZoom(15);
+			}
+		}
+
+		function createPlaceMarker(place) {
+		 var placeLoc = place.geometry.location;
+			if (place.icon) {
+			  var image = new google.maps.MarkerImage(
+					place.icon, new google.maps.Size(71, 71),
+					new google.maps.Point(0, 0), new google.maps.Point(17, 34),
+					new google.maps.Size(25, 25));
+			} else var image = null;
+		  
+		  var marker = new google.maps.Marker({
+			map: map,
+			icon: image,
+			position: place.geometry.location
+		  });
+
+		  google.maps.event.addListener(marker, 'click', function() {
+			map.setCenter(placeLoc);
+			//infowindow.setContent(place.name);
+			//infowindow.open(map, this);
+			
+		  });
+			return marker;
+		}
 	
+		function isPlaceOpenDuring(startTime,endTime, dayOfWeek, place){
+			//return true if the place is open at the time specified 
+			//false if anything else. assumes opening_hours always exists
+			//day of week starts from Sunday (0), to 6. 
+			//input times are in 24hr format (0000-2359)
+			if(dayOfWeek > 6 || dayOfWeek<0){
+				return false;
+			}
+			var openHour = place.opening_hours.periods[dayOfWeek].open;
+			var closeHour = place.opening_hours.periods[dayOfWeek].close;
+			if(openHour > startTime || startTime > closeHour ||
+				closeHour < endTime || endTime<openHour){
+				return false;
+			}
+			else{
+				return true;
+			}	
+		}
+		
+		
 		$(function() {	
 			$("#setCoordBtn").click(function(){
 				latVal=$("#latValField").val();
@@ -169,6 +246,11 @@
 			$("#setUserLocationBtn").click(function(){
 				setUserLocation();
 			});
+			
+			$("#nearbyBtn").click(function(){
+				markPlacesNearby(userLatCoord,userLngCoord, nearbySearchTypes, nearbySearchRadius, nearbySearchRankby);
+			});
+						
 			
 		}); 
         </script>
@@ -220,7 +302,14 @@
 											<div class="12u">
 												<a name="setUserLocation" id="setUserLocationBtn" class="button button-icon fa fa-envelope">set Current Location as user's location</a> 
 											</div>
-																						
+										</div>
+										
+										<div class="row half">
+											<!--*****************************************-->
+											<div class="12u">
+												<a name="nearby" id="nearbyBtn" class="button button-icon fa fa-envelope">places nearby</a> 
+											</div>
+										</div>
 											
 								</section>
 							</div>
