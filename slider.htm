@@ -1,30 +1,30 @@
-<!DOCTYPE HTML>
-<!--
-	Strongly Typed 1.1 by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
+	<!DOCTYPE HTML>
+	<!--
+		Strongly Typed 1.1 by HTML5 UP
+		html5up.net | @n33co
+		Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	-->
+	<html>
 	<head>
 		<title>Slider Test</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="keywords" content="Zexuan Wang, Canada, Table tennis, software, resume, Aaron Wang">
-        <meta name="description" content="Personal website of Zexuan Wang, about his academic, table tennis and social life">
-        <meta name="author" content="Zexuan Wang">
-        <meta charset="UTF-8">
+		<meta name="description" content="Personal website of Zexuan Wang, about his academic, table tennis and social life">
+		<meta name="author" content="Zexuan Wang">
+		<meta charset="UTF-8">
 		<meta name="viewport" content="width=900" />
 
 		<!--boostrap meta tags-->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 
-        
+
 		<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Arvo:700" rel="stylesheet" type="text/css"/>
 		<!-- noscript -->
-			<link rel="stylesheet" href="css/skel-noscript.css" />
-			<link rel="stylesheet" href="css/style.css" />
-			<link rel="stylesheet" href="css/style-desktop.css" />
-        	<link rel="stylesheet" href="css/style-gallery.css" />
+		<link rel="stylesheet" href="css/skel-noscript.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/style-desktop.css" />
+		<link rel="stylesheet" href="css/style-gallery.css" />
 		<!-- /noscript -->
 
 
@@ -37,160 +37,160 @@
 		<script src="js/config.js"></script>
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-panels.min.js"></script>	
-        <script src="js/gallery.js"></script>	  
-        <!-- used for mobile split-panel layout -->
+		<script src="js/gallery.js"></script>	  
+		<!-- used for mobile split-panel layout -->
 
 
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-		  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-		  <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-		  <link rel="stylesheet" href="/resources/demos/style.css">
-		  <script>
-		  $(function() {
-		    $( "#slider-range" ).slider({
-		      range: true,
-		      min: 0,
-		      max: 500,
-		      values: [ 75, 300 ],
-		      slide: function( event, ui ) {
-		        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-		      }
-		    });
-		    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-		      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-		  });
-		  </script>
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+		<link rel="stylesheet" href="/resources/demos/style.css">
+		<script>
+		$(function() {
+			$( "#slider-range" ).slider({
+				range: true,
+				min: 0,
+				max: 500,
+				values: [ 75, 300 ],
+				slide: function( event, ui ) {
+					$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+				}
+			});
+			$( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+				" - $" + $( "#slider-range" ).slider( "values", 1 ) );
+		});
+		</script>
 
-		
+
 	</head>
-    
-    
-    
+
+
+
 	<body class="homepage">
 		<!-- SLIDER DIV BEGINS-->
 		<div id="slider">
 
 
-		<p>
-		  <label for="amount">Price range:</label>
-		  <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
-		</p>
-		 
-		<div id="slider-range"></div>
+			<p>
+				<label for="amount">Price range:</label>
+				<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
+			</p>
+
+			<div id="slider-range"></div>
 
 
 		</div>
 		<!-- SLIDER DIV BEGINS-->
-		
 
 
 
 
 
-    	
-
-        <!-- Gallery Wrapper -->
-        <div class="wrapper-border">
-        	<div class="fa fa-times close"><span>Close</span></div>
-        <div class="gallery-wrapper">
-            <div class="gallery-mask">
-                <ul id="gallery-ul">
-                    <!--li class="gallery-li">
-                        <img class="gallery-img" src="personal_img/tt_life/pic0.jpg"/>
-                    </li-->
 
 
-                </ul>
-            </div>
-            
-            <div class="leftbtn">
-                <div class="leftbtn-inner">
-                	<img id="leftbtn-image" src="css/images/left-arrow.png"/></div>
-            </div>            
-            <div class="rightbtn">
-                <div class="rightbtn-inner">
-                	<img id="rightbtn-image" src="css/images/right-arrow.png"/></div>
-            </div>
-        </div>
-    	</div>
-        <!-- End of gallery wrapper-->
 
-        
-		
+		<!-- Gallery Wrapper -->
+		<div class="wrapper-border">
+			<div class="fa fa-times close"><span>Close</span></div>
+			<div class="gallery-wrapper">
+				<div class="gallery-mask">
+					<ul id="gallery-ul">
+	                    <!--li class="gallery-li">
+	                        <img class="gallery-img" src="personal_img/tt_life/pic0.jpg"/>
+	                    </li-->
 
 
-		<!-- Footer Wrapper -->
-			<div id="footer-wrapper">
+	                </ul>
+	            </div>
+	            
+	            <div class="leftbtn">
+	            	<div class="leftbtn-inner">
+	            		<img id="leftbtn-image" src="css/images/left-arrow.png"/></div>
+	            	</div>            
+	            	<div class="rightbtn">
+	            		<div class="rightbtn-inner">
+	            			<img id="rightbtn-image" src="css/images/right-arrow.png"/></div>
+	            		</div>
+	            	</div>
+	            </div>
+	            <!-- End of gallery wrapper-->
 
-				<!-- Footer -->
-					<div id="footer" class="container">
-						<header>
-							<h2>Questions? <strong>CONTACT ME!</strong></h2>
-						</header>
-						<div class="row">
-							<div class="6u">
-								<section>
-									<form method="post" action="#">
-										<div class="row half">											
-											<div class="6u">
-												<input id="mailSubject" name="subject" placeholder="Subject" type="text" class="text" />
-											</div>
-											<div class="6u">
-												<input id="mailSender" name="sender" placeholder="Name" type="Name" class="text" />
-											</div>
-										</div>
-										<div class="row half">
-											<div class="12u">
-												<textarea id="mailBody" name="message" placeholder="Message"></textarea>
-											</div>
-										</div>
-										<div class="row half">
-											<div class="12u">
-												<a name="sendMsg" id="sendMsg" class="button button-icon fa fa-envelope">Send Message</a>
-											</div>
-										</div>
-									</form>
-								</section>
-							</div>
-							<div class="6u">
-								<section>
-									<p></p>
-									<div class="row">
-										<ul class="icons 6u">
-											<li class="fa fa-phone">
-												<a href="tel:647-459-8073">(647) 459-8073</a>
-											</li>
-											<li class="fa fa-envelope">
-												<a href="mailto:zexuan.wang@mail.utoronto.ca">zexuan.wang@<br/>mail.utoronto.ca</a>
-											</li>
-											<li class="fa fa-skype">
-												Skype:<br/>tabletenniser
-											</li>
-										</ul>
-										<ul class="icons 6u">
-											<li class="fa fa-linkedin">
-												<a href="http://ca.linkedin.com/pub/zexuan-wang/45/a27/8">ca.linkedin.com/<br/>pub/dir/Zexuan/Wang</a>
-											</li>
-											<li class="fa fa-facebook">
-												<a href="https://www.facebook.com/aaron.wang.902">facebook.com/<br/>aaron.wang.902</a>
-											</li>
-										</ul>
-									</div>
-								</section>
-							</div>
-						</div>
-					</div>
 
-				<!-- Copyright -->
-					<div id="copyright" class="container">
-						<ul class="links">
-							<li>Copyright &copy; 2013 Zexuan Wang. All rights reserved</li>
-						</ul>
-					</div>
 
-			</div>
 
-    </div>
-    </div>
+
+	            <!-- Footer Wrapper -->
+	            <div id="footer-wrapper">
+
+	            	<!-- Footer -->
+	            	<div id="footer" class="container">
+	            		<header>
+	            			<h2>Questions? <strong>CONTACT ME!</strong></h2>
+	            		</header>
+	            		<div class="row">
+	            			<div class="6u">
+	            				<section>
+	            					<form method="post" action="#">
+	            						<div class="row half">											
+	            							<div class="6u">
+	            								<input id="mailSubject" name="subject" placeholder="Subject" type="text" class="text" />
+	            							</div>
+	            							<div class="6u">
+	            								<input id="mailSender" name="sender" placeholder="Name" type="Name" class="text" />
+	            							</div>
+	            						</div>
+	            						<div class="row half">
+	            							<div class="12u">
+	            								<textarea id="mailBody" name="message" placeholder="Message"></textarea>
+	            							</div>
+	            						</div>
+	            						<div class="row half">
+	            							<div class="12u">
+	            								<a name="sendMsg" id="sendMsg" class="button button-icon fa fa-envelope">Send Message</a>
+	            							</div>
+	            						</div>
+	            					</form>
+	            				</section>
+	            			</div>
+	            			<div class="6u">
+	            				<section>
+	            					<p></p>
+	            					<div class="row">
+	            						<ul class="icons 6u">
+	            							<li class="fa fa-phone">
+	            								<a href="tel:647-459-8073">(647) 459-8073</a>
+	            							</li>
+	            							<li class="fa fa-envelope">
+	            								<a href="mailto:zexuan.wang@mail.utoronto.ca">zexuan.wang@<br/>mail.utoronto.ca</a>
+	            							</li>
+	            							<li class="fa fa-skype">
+	            								Skype:<br/>tabletenniser
+	            							</li>
+	            						</ul>
+	            						<ul class="icons 6u">
+	            							<li class="fa fa-linkedin">
+	            								<a href="http://ca.linkedin.com/pub/zexuan-wang/45/a27/8">ca.linkedin.com/<br/>pub/dir/Zexuan/Wang</a>
+	            							</li>
+	            							<li class="fa fa-facebook">
+	            								<a href="https://www.facebook.com/aaron.wang.902">facebook.com/<br/>aaron.wang.902</a>
+	            							</li>
+	            						</ul>
+	            					</div>
+	            				</section>
+	            			</div>
+	            		</div>
+	            	</div>
+
+	            	<!-- Copyright -->
+	            	<div id="copyright" class="container">
+	            		<ul class="links">
+	            			<li>Copyright &copy; 2013 Zexuan Wang. All rights reserved</li>
+	            		</ul>
+	            	</div>
+
+	            </div>
+
+	        </div>
+	    </div>
 	</body>
-</html>
+	</html>
