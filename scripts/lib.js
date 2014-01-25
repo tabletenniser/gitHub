@@ -56,6 +56,25 @@ define(['backbone','parse'],function(Backbone,Parse){
 			}
 		},
 	});
+
+	Lib.DataStore={};
+	var Store={}
+	Lib.DataStore.save = function(key,parseObject){
+		if(key){
+			Store[key] = parseObject; 
+		}else{
+			throw new Error("no object key");
+		}
+
+	};
+	Lib.DataStore.find = function(key){
+		if (key){
+			return Store[key];
+		}else{
+			throw new Error("no given key");
+		}
+	}
+
 	return Lib;
 
 });

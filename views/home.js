@@ -2,13 +2,12 @@ define(['marionette','parse','hbs!templates/home','lib','models/event','views/co
 		function(Marionette, Parse,homeTemplate,Lib,Event,ListView,EventItemView){
 	return Marionette.Layout.extend({
 		template: homeTemplate,
-		ui:{
-			content:'.content-section',
+		regions:{
+			content:'.event-section',
 		},
-		
 		onRender:function(){
 			this.user = Lib.getCurrentUser();
-			this.events = Event.Collection();
+			this.events =new Event.Collection();
 			this.events.setUser(this.user);
 			this.events.fetch();
 			this.content.show(new ListView({
@@ -17,8 +16,5 @@ define(['marionette','parse','hbs!templates/home','lib','models/event','views/co
 			}));
 
 		},
-
-
-
 	});
 });
