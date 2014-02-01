@@ -1,6 +1,6 @@
 define(['marionette','parse','hbs!templates/event','lib','models/event','models/activity','views/itemviews/activityItemView',
-		'views/composites/listView','scripts/search','facebook'],function(Marionette,Parse,createNewTemplate,Lib,Event,Activity,ActivityItemView,
-				ListView,Search,Facebook){
+		'views/composites/listView','scripts/search','facebook','scripts/sliderbar','models/time'],function(Marionette,Parse,createNewTemplate,Lib,Event,Activity,ActivityItemView,
+				ListView,Search,Facebook,SliderBar,Time){
 	return Marionette.Layout.extend({
 		template: createNewTemplate,
 
@@ -9,6 +9,7 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 			this.refresh();
 		},
 		addFriends:function(){
+<<<<<<< HEAD
 			console.log("Add friends function gets called");
 
 			Facebook.ui(
@@ -32,6 +33,9 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 
 
 
+=======
+				//to do
+>>>>>>> 7a080f1b49b1f261c627c42beeb673daa1aa797b
 		},
 
 		//run this function whenever a new view is opened
@@ -109,11 +113,30 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 		events:{
 			"click .submit": "submitEvent",
 			"click .add-friends": "addFriends",
+			"click .submit-time":"submitTime",
 			"click .add-activity": "newActivity",
 			"click .submit-activity":"submitActivity",
+			"click .add-time":"addTime",
 			"click #geolocate": "geolocate",
 			"click #findplaces":"findplaces",
 			"click #searchAddress": "searchAddress"
+		},
+		submitTime:function(){
+			var starttime = new Date($('.startT').val());
+			var endtime = new Date($('.endT').val());
+			var time = new Time.Model();
+			var data = {
+				'user':this.user,
+				'event': this.event,
+				'starttime': starttime,
+				'endtime': endtime,
+			};
+			Lib.ModelSave(time,data,function(){
+				$('.startT').val("");
+				$('.endT').val("");
+
+			});
+
 		},
 		onRender:function(){
 			//create a new event object
@@ -129,6 +152,16 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 					itemViewOptions: options,
 				}))
 			}
+			if (this.createNew){
+				var date = {
+					start: new Date(),
+					end :new Date()+1000000,
+				}
+				SliderBar([date]);				
+			}else{
+
+			}
+			
 			
 		},
 		submitActivity:function(){
@@ -195,7 +228,10 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 				if (this.coord.lat&&this.coord.lng){
 					var radius = parseInt($("#placeRadius").val())*1000;
 					var type = $("#placeTypes").val();
-					Search.markPlacesNearby(this.coord.lat,this.coord.lng,type,radius);
+					Search.markPlacesNearby(this.coord.lat,this.coord.lng,type,radius).then(function(results){
+
+						console.log(results);
+					});
 
 				}
 

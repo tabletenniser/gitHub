@@ -9,6 +9,11 @@ define(['marionette','parse','hbs!templates/composites/horizontalView'],function
 				_.extend(this,options);
 			},
 
+			onRender:function(){
+
+
+			},
+
 		});
 
 

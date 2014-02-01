@@ -75,10 +75,28 @@
 
 <div class="time-section">
   <label for="timeContainer">Time</label>
-  <div id="timeContainer">
-  </div>
+  {{#if createNew}}
+      Start time: <input type="text" class="startT hasDatepicker" style="border:0; color:#f6931f; font-weight:bold;">
+      End time: <input type="text" class="endT hasDatepicker" style="border:0; color:#f6931f; font-weight:bold;">
+      <button type="button" class="btn btn-default submit-time">add time</button>
+  {{else}}
+    <div class="slider">
+      <p>
+        <div class="content"></div>
+        
+      </p>
+
+      <div class="slider-range">
+        <div class="other-ranges"></div>
+      </div>
+      Start time: <input type="text" class="startT" style="border:0; color:#f6931f; font-weight:bold;">
+      End time: <input type="text" class="endT" style="border:0; color:#f6931f; font-weight:bold;">
+      <button type="button" class="btn btn-default submit-time">add time</button>
+    </div>
+
+  {{/if}}
 </div>
-<button type="button" class="btn btn-default">add time</button>
+
 
 <br/>
 <br/>
