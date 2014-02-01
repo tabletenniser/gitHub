@@ -1,13 +1,6 @@
 
-<div class="media well well-sm">
-  <!--<a class="pull-left" href="#">
-    <img class="media-object" src="..." alt="...">
-  </a>-->
-  <div class="media-body">
-    <a><h4 class="media-heading">{{location}}</h4></a>
-    <small>{{description}}</small>
-	{{#if voting}}
-		<p><a class="upvote">vote up:</a> {{upvotes}} <a class="downvote">vote down:</a> {{downvotes}} </p>
-	{{/if}}
-  </div>
-</div>
+  <a><h4 class="media-heading">{{vicinity}}</h4></a>
+  <small>{{name}}</small>
+{{#if voting}}
+	<p><a class="upvote">vote up:</a> {{upvotes}} <a class="downvote">vote down:</a> {{downvotes}} </p>
+{{/if}}

@@ -9,10 +9,14 @@ define(['marionette','parse','hbs!templates/composites/horizontalView'],function
 				_.extend(this,options);
 			},
 
+<<<<<<< HEAD
 			onRender:function(){
 
 
 			},
+=======
+			
+>>>>>>> 4a17280febdcac7b7aa82981d516163f91037747
 
 		});
 

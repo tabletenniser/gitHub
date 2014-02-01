@@ -6,8 +6,8 @@ define(['marionette','parse','lib'],function(Marionette,Parse, Lib){
 
 	 });
 
-	 Activity.Collection = Lib.Collection.extend({
-	 	model: Activity.model,
+	 Activity.Collection = Parse.Collection.extend({
+	 	model: Activity.Model,
 
 	 	setEvent:function(event){
 	 		this.event = event;

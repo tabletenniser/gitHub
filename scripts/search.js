@@ -101,11 +101,22 @@ define(['marionette','lib','q'],function(Marionette,Lib,Q){
 				rankBy:google.maps.places.RankBy.PROMINENCE,
 			};
 			var service = new google.maps.places.PlacesService(map);
+<<<<<<< HEAD
 			service.nearbySearch(request, processPlaces,deffered);
 			return deffered.promise;
 		}
 
 		function processPlaces(results, status,promise){
+=======
+			var success = processPlaces;
+			service.nearbySearch(request, function(results,status){
+				success(results,status, deffered);
+		});
+			return deffered.promise;
+		};
+
+		var processPlaces =function (results, status,deffered){
+>>>>>>> 4a17280febdcac7b7aa82981d516163f91037747
 			if(status==google.maps.places.PlacesServiceStatus.OK){
 				var resultCount = results.length>20 ? 20:results.length;
 				nearbyPlacesList = results.slice(0,resultCount);

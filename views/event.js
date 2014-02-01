@@ -7,8 +7,10 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 		initialize:function(options){
 			_.extend(this,options);
 			this.refresh();
+			this.listenTo(Lib.Events,"activity:selected",this.activitySelected);
 		},
 		addFriends:function(){
+<<<<<<< HEAD
 <<<<<<< HEAD
 			console.log("Add friends function gets called");
 
@@ -36,6 +38,9 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 =======
 				//to do
 >>>>>>> 7a080f1b49b1f261c627c42beeb673daa1aa797b
+=======
+				//to do
+>>>>>>> 4a17280febdcac7b7aa82981d516163f91037747
 		},
 
 		//run this function whenever a new view is opened
@@ -78,6 +83,7 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 				this.createNew = true;
 			}
 			this.activities = new Activity.Collection();
+			this.foundActivities= new Activity.Collection();
 
 		},
 
@@ -108,6 +114,7 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 			activity:".activity-section",
 			friend :".friend-section",
 			time :".time-section",
+			found: ".found-section",
 		},
 
 		events:{
@@ -161,29 +168,34 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 			}else{
 
 			}
+<<<<<<< HEAD
+=======
+			if (this.foundActivities){
+				this.found.show(new ListView({
+					collection: this.foundActivities,
+					itemView:ActivityItemView,
+					itemViewOptions:{
+						voting:false,
+						click:true,
+					}
+				}));
+			}
+>>>>>>> 4a17280febdcac7b7aa82981d516163f91037747
 			
 			
 		},
 		submitActivity:function(){
-			var activity = new Activity.Model();
-			var title = this.$el.find("input[name='activity-title']").val();
-			var description = this.$el.find("input[name='activity-description']").val();
-			var location = this.$el.find("input[name='activity-location']").val();
-			var data ={'user':this.user,
-					   'event':this.event,
-					   'title':title,
-						'description':description,
-						'location':location,
-						'upvotes':0,
-						'downvotes':0};
-			var view = this;
-			var that =this;
-			Lib.ModelSave(activity,data,function(){
-				view.$el.find(".new-activity-dropdown").css({display:"none"});
-				that.activities.add(activity);
-			},function(){
+			if (this.selectedActivity){
+				this.selectedActivity.set('user',this.user);
+				this.selectedActivity.set('event',this.event);
+				var activity = this.selectedActivity;
+				Lib.ModelSave(activity,data,function(){
+					view.$el.find(".new-activity-dropdown").css({display:"none"});
+					that.activities.add(activity);
+				},function(){
 
-			});
+				});
+			}
 		},
 		
 		
@@ -225,15 +237,32 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 
 		findplaces:function(){
 			if (this.coord){
+				
+				var foundActivities = this.foundActivities;
+				//foundActivities.reset([{"dd":"dd"},{"dd":"dd"}]);
 				if (this.coord.lat&&this.coord.lng){
 					var radius = parseInt($("#placeRadius").val())*1000;
 					var type = $("#placeTypes").val();
 					Search.markPlacesNearby(this.coord.lat,this.coord.lng,type,radius).then(function(results){
+<<<<<<< HEAD
 
 						console.log(results);
 					});
 
+=======
+						    _.each(results,function(each){
+						    	each.lat = each.geometry.location.d;
+						    	each.lng = each.geometry.location.e;
+						    	each.openingNow = each.opening_hours;
+						    	delete(each.opening_hours) ;
+						    	delete(each.geometry);
+						    });
+							foundActivities.reset(results);
+							console.log(results);
+					});
+>>>>>>> 4a17280febdcac7b7aa82981d516163f91037747
 				}
+
 
 			}
 			
@@ -253,6 +282,11 @@ define(['marionette','parse','hbs!templates/event','lib','models/event','models/
 				this.coord = coord;
 			}
 		},
+		activitySelected:function (activity){
+			this.selectedActivity = activity;
+
+
+		}
 
 
 

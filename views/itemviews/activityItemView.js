@@ -9,9 +9,16 @@ define(['marionette','parse','lib','hbs!templates/itemviews/activityItemView'],f
 			console.log(options);
 			this.listenTo(this.model,'change',this.render);
 		},
+<<<<<<< HEAD
 		onRender:function{
 			if (this.clickable){
 				this.$el.addClass("list-group-item");
+=======
+		onRender:function(){
+			if (this.clickable){
+				this.$el.addClass("list-group-item");
+
+>>>>>>> 4a17280febdcac7b7aa82981d516163f91037747
 			}
 		},
 		serializeData:function(){
@@ -29,6 +36,11 @@ define(['marionette','parse','lib','hbs!templates/itemviews/activityItemView'],f
 			if (this.clickable){
 				this.$el.addClass("active");
 				this.$el.parent().find('.active').removeClass('active');
+<<<<<<< HEAD
+=======
+				Lib.Events.trigger("activitiy:show",{lat: this.model.get('lat'),lng:this.model.get('lng')});
+				Lib.Events.trigger("activitiy:show",{lat: this.model.get('lat'),lng:this.model.get('lng')});
+>>>>>>> 4a17280febdcac7b7aa82981d516163f91037747
 			}
 
 		},
